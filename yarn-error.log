@@ -1,0 +1,86 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/bin/yarn install
+
+PATH: 
+  /Users/wuage/.local/bin:/usr/local/bin:/usr/local/gcc-8.3/bin:/Users/wuage/.rvm/gems/ruby-2.4.1/bin:/Users/wuage/.rvm/gems/ruby-2.4.1@global/bin:/Users/wuage/.rvm/rubies/ruby-2.4.1/bin:/usr/local/Cellar/mongodb/3.6.5:/Users/wuage/.yarn/bin:/Users/wuage/.config/yarn/global/node_modules/.bin:/usr/local/opt/ruby/bin:/Users/wuage/.npm-global/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/wuage/.local/bin:/Users/wuage/anaconda3/bin:/usr/local/gcc-8.3/bin:/Users/wuage/.rvm/gems/ruby-2.4.1/bin:/Users/wuage/.rvm/gems/ruby-2.4.1@global/bin:/Users/wuage/.rvm/rubies/ruby-2.4.1/bin:/usr/local/Cellar/mongodb/3.6.5:/Users/wuage/.yarn/bin:/Users/wuage/.config/yarn/global/node_modules/.bin:/usr/local/opt/ruby/bin:/Users/wuage/.npm-global/bin:/Users/wuage/.rvm/bin:/Users/wuage/develop/hsf:/Users/wuage/tools/android-sdk-macosx/tools:/Users/wuage/tools/android-sdk-macosx/platform-tools:/Applications/MacVim.app/Contents/bin:/usr/local/mysql/bin:/Users/wuage/.rvm/bin:/Users/wuage/develop/hsf:/Users/wuage/tools/android-sdk-macosx/tools:/Users/wuage/tools/android-sdk-macosx/platform-tools:/Applications/MacVim.app/Contents/bin:/usr/local/mysql/bin:/Users/wuage/.rvm/bin
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  20.11.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: certificate has expired
+      at TLSSocket.onConnectSecure (node:_tls_wrap:1674:34)
+      at TLSSocket.emit (node:events:518:28)
+      at TLSSocket._finishInit (node:_tls_wrap:1085:8)
+      at ssl.onhandshakedone (node:_tls_wrap:871:12)
+
+npm manifest: 
+  {
+    "name": "vue-gantt-elastic",
+    "version": "1.0.1",
+    "private": true,
+    "scripts": {
+      "serve": "vue-cli-service serve",
+      "build": "vue-cli-service build",
+      "lint": "vue-cli-service lint"
+    },
+    "dependencies": {
+      "@quasar/extras": "^1.1.2",
+      "dayjs": "^1.8.14",
+      "gantt-elastic": "^1.0.0",
+      "gantt-elastic-header": "^0.1.11",
+      "quasar": "^1.0.0-beta.23",
+      "vue": "^2.6.10",
+      "vue-router": "^3.0.6"
+    },
+    "devDependencies": {
+      "@vue/cli-plugin-babel": "^3.7.0",
+      "@vue/cli-plugin-eslint": "^3.7.0",
+      "@vue/cli-service": "^3.7.0",
+      "@vue/eslint-config-prettier": "^4.0.1",
+      "babel-eslint": "^10.0.1",
+      "babel-plugin-transform-imports": "1.5.0",
+      "eslint": "^5.16.0",
+      "eslint-plugin-vue": "^5.0.0",
+      "stylus": "^0.54.5",
+      "stylus-loader": "^3.0.2",
+      "vue-cli-plugin-quasar": "^1.0.0-beta.1",
+      "vue-template-compiler": "^2.6.10"
+    },
+    "eslintConfig": {
+      "root": true,
+      "env": {
+        "node": true
+      },
+      "extends": [
+        "plugin:vue/essential",
+        "eslint:recommended"
+      ],
+      "rules": {},
+      "parserOptions": {
+        "parser": "babel-eslint"
+      }
+    },
+    "postcss": {
+      "plugins": {
+        "autoprefixer": {}
+      }
+    },
+    "browserslist": [
+      "> 1%",
+      "last 2 versions",
+      "not ie <= 8"
+    ]
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
