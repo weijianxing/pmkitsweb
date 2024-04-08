@@ -4,11 +4,24 @@ import Gantt from './components/Gantt.vue';
 import Info from './components/Info.vue';
 
 import Router from 'vue-router';
+import axios from 'axios';
+// vue3
+// import { ElDialog } from 'element-ui';  
+// Vue.use(ElDialog);  // Register the component
+// import ElementPlus from 'element-plus'
+// import 'element-plus/dist/index.css'
+// import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+// import locale from 'element-plus/lib/locale/lang/zh-cn'
+
 Vue.use(Router);
+Vue.prototype.$axios = axios;
 
 const router = new Router({
   routes: [
-    {
+    { 
       path: '/',
       component: Gantt
     },
@@ -61,6 +74,7 @@ Vue.use(Quasar, {
   plugins: {},
   iconSet: iconSet
 });
+Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
 

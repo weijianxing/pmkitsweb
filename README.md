@@ -27,3 +27,10 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+yarn add element-ui
+export NODE_OPTIONS=--openssl-legacy-provider
+yarn build
+yarn run serve
+

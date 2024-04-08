@@ -93,6 +93,7 @@
 import TaskList from './TaskList/TaskList.vue';
 import Chart from './Chart/Chart.vue';
 
+// eslint-disable-next-line no-unused-vars
 let ignoreScrollEvents = false;
 
 export default {
@@ -230,6 +231,7 @@ export default {
      * Chart mouseup event handler
      * Deactivates drag scrolling mode
      */
+    // eslint-disable-next-line no-unused-vars
     chartMouseUp(ev) {
       this.root.state.options.scroll.scrolling = false;
     },

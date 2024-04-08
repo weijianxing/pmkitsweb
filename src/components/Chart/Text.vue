@@ -63,6 +63,7 @@ export default {
      */
     getWidth() {
       const textStyle = this.root.style['chart-row-text'];
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       this.root.state.ctx.font = `${textStyle['font-weight']} ${textStyle['font-size']} ${textStyle['font-family']}`;
       const textWidth = this.root.state.ctx.measureText(this.task.label).width;
       return textWidth + this.root.state.options.chart.text.xPadding * 2;

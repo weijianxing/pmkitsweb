@@ -12,7 +12,7 @@
         />
 
         <q-toolbar-title>
-          龙腾数科项目管理 demo
+          龙腾数科项目管理 
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import Gantt from "./components/Gantt.vue";
 
 export default {
   name: "LayoutDefault",
