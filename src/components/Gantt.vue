@@ -10,7 +10,7 @@
       <gantt-header slot="header"></gantt-header>
     </gantt-elastic>
     <div class="q-mt-md" />
-    <q-btn @click="addTask" icon="mdi-plus" label="Add task" />
+    <q-btn @click="addTask" icon="mdi-plus" label="添加项目" />
     <!-- <div v-modal="showAddTask">
       <input v-model="formPMData.name">
       <input v-model="formPMData.email">
@@ -22,20 +22,21 @@
           <el-autocomplete
           v-model="formPMData.name" 
           :fetch-suggestions="queryPMinfos"
+          :focus = "queryPMinfos"
           :trigger-on-focus="false"
           @select="handleSelect"
-          prefix-icon="el-icon-search" 
           placeholder="请输入项目名称" 
-          
+          value-key = "name"
           >
         </el-autocomplete>
         </el-form-item>
+       
         <el-form-item label="产品线" :label-width="formLabelWidth">
             <el-select v-model="formPMData.region" placeholder="请选择业务线">
-              <el-option label="仓储" value="cangchu"></el-option>
-              <el-option label="云集-噶顺" value="gashun"></el-option>
-              <el-option label="易焦煤" value="yijiaomei"></el-option>
-              <el-option label="其它" value="ext"></el-option>
+              <el-option label="仓储" value="仓储"></el-option>
+              <el-option label="云集-噶顺" value="云集"></el-option>
+              <el-option label="易焦煤" value="易焦煤"></el-option>
+              <el-option label="其它" value="其它"></el-option>
             </el-select>
           </el-form-item>
         <el-form-item label="开始时间"  :label-width="formLabelWidth" >
@@ -54,11 +55,11 @@
       </el-form-item>
         <div class="input-pmInfo" >
           <el-form-item label="参与人员" :label-width="formLabelWidth">
-            <el-select v-model="formPMData.region" placeholder="请选择角色类型">
-              <el-option label="产品经理" value="pm"></el-option>
-              <el-option label="前端开发" value="frontend_dev"></el-option>
-              <el-option label="后端开发" value="backend_dev"></el-option>
-              <el-option label="测试" value="qa"></el-option>
+            <el-select v-model="formPMData.role" placeholder="请选择角色类型">
+              <el-option label="产品经理" value="产品经理"></el-option>
+              <el-option label="前端开发" value="前端开发"></el-option>
+              <el-option label="后端开发" value="后端开发"></el-option>
+              <el-option label="测试" value="测试"></el-option>
             </el-select>
           </el-form-item>
             <el-form-item label="姓名" :label-width="formLabelWidth">
@@ -68,10 +69,19 @@
             </el-input>
           </el-form-item>
       </div>
+      <el-form-item label="需求描述" 
+        :label-width="formLabelWidth">
+          <el-input
+            type="textarea"
+            :autosize="{ minRows: 2, maxRows: 6}"
+            placeholder="请输入prd链接或项目描述"
+            v-model="formPMData.desc">
+          </el-input>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        <el-button type="primary" @click="submitPMData">确 定</el-button>
       </div>
 </el-dialog>
 
@@ -346,7 +356,7 @@ export default {
   data() {
     return {
       dialogFormVisible: false,
-      pms: [],
+      pms: [ ],
       timeout:  null,
       tasks,
       options,
@@ -356,6 +366,11 @@ export default {
       formPMData: {
         name: '',
         region: '',
+        username: "",
+        beginTime: "",
+        endTime: "",
+        role: "",
+        desc: ''
       },
     };
   },
@@ -412,23 +427,32 @@ export default {
             withCredentials: true
             })
             var res;
-            api.get('/pm/getAllPMNames').then(response=>{
-              
-                this.tasks = []
-                for(var i in response.data)
+            var pmnames;
+            var uri = '/pm/getPMNames/';
+            console.log("user input:",queryString)
+            if (queryString.trim() === ""){
+              uri = '/pm/getAllPMNames/';
+            }else{
+               uri = uri+queryString;
+            }
+            api.get(uri).then(response=>{
+              console.log(response.data)
+              pmnames =  JSON.parse(response.data);
+              for(var i in  pmnames)
               {
-                
-                console.log(response.data[i])
-                this.pms.push(response.data[i])
+                var nameObj = {};
+                nameObj.name = pmnames[i];
+                pmnames.push(nameObj);
+                console.log(nameObj)
+                // this.pms.push(response.data[i])
               }
+              
             })
             clearTimeout(this.timeout);
           this.timeout = setTimeout(() => {
-            cb(this.pms);
-          }, 3000 * Math.random());
-              console.log("---get task info ------")
-        
-
+            cb(pmnames);
+          }, 2000 * Math.random());
+              // console.log("---get task info ------")
       }catch(error){
         if (error.response) {
         // 服务器返回错误
@@ -442,24 +466,47 @@ export default {
       }
       
     },
-    addTask() {
-      
+    handleSelect(item) {
+        console.log(item);
+      },
+
+    addTask() {  
       this.dialogFormVisible = true
-      // this.tasks.push({
-      //   id: this.lastId++,
-      //   label:
-      //     '<a href="https://images.pexels.com/photos/423364/pexels-photo-423364.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" target="_blank" style="color:#0077c0;">Yeaahh! you have added a task bro!</a>',
-      //   user:
-      //     '<a href="https://images.pexels.com/photos/423364/pexels-photo-423364.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" target="_blank" style="color:#0077c0;">Awesome!</a>',
-      //   start: getDate(24 * 3),
-      //   duration: 1 * 24 * 60 * 60 * 1000,
-      //   percent: 50,
-      //   type: "project"
-      // });
     },
     submitPMData(){
       //TODO 调用接口push data
       this.dialogFormVisible = false
+      try{
+          const api = axios.create({
+            baseURL: 'http://127.0.0.1:8083', // Django的地址
+            withCredentials: true
+            })
+            var res;
+            api.get('/pm/allProject').then(response=>{
+              
+                this.tasks = []
+                for(var i in response.data)
+              {
+                
+                console.log(response.data[i])
+                this.tasks.push(response.data[i])
+              }
+            })
+            console.log("---get task info ------")
+          
+      }catch(error){
+        if (error.response) {
+        // 服务器返回错误
+        console.log(error.response.status);
+        console.log(error.response.data);
+      } else {
+        // 网络错误
+        console.log(error.message);
+      }
+          // console.log("get project info : ", error)
+      }
+
+
     },
     tasksUpdate(tasks) {
       this.tasks = tasks;
